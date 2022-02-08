@@ -4,6 +4,10 @@ namespace App\Http\Shapes;
 
 use Illuminate\Http\Request;
 use App\Http\Shapes\ShapeFactory;
+use App\Http\Shapes\Circle;
+use App\Http\Shapes\Square;
+use App\Http\Shapes\Rectangle;
+use App\Http\Controllers\Controller;
 
 class FactoryPatterDemo extends Controller
 {
