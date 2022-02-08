@@ -27,4 +27,4 @@ Route::get('/users/{user}', [UserController::class, 'show']);
 
 Route::post('/wallet/transfer', [WalletController::class, 'transfer']);
 
-Route::post('/shapes/{shape}', [FactoryPatternDemo::class, 'main']);
+Route::get('/shapes/{shape}', [FactoryPatternDemo::class, 'main']);

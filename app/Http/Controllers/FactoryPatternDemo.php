@@ -7,8 +7,8 @@ use App\Http\Shapes\ShapeFactory;
 
 class FactoryPatternDemo extends Controller
 {
-    public function main()  
+    public function main($shape)  
     {
-        return ShapeFactory::getShape('circle');
+        return ShapeFactory::getShape($shape);
     }
 }

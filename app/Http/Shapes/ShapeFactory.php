@@ -9,7 +9,7 @@ use App\Http\Shapes\Square;
 use App\Http\Shapes\Rectangle;
 use App\Http\Controllers\Controller;
 
-class FactoryPatternDemo extends Controller
+class ShapeFactory extends Controller
 {
     public static function getShape($shape)  
     {
