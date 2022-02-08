@@ -9,23 +9,26 @@ use App\Http\Shapes\Square;
 use App\Http\Shapes\Rectangle;
 use App\Http\Controllers\Controller;
 
-class FactoryPatterDemo extends Controller
+class FactoryPatternDemo extends Controller
 {
     public static function getShape($shape)  
     {
         if($shape == 'circle')
         {
-            return new Circle();
+            $circle = new Circle();
+            return $circle->draw();
         }
 
         if($shape == 'square')
         {
-            return new Square();
+            $square = new Square();
+            return $square->draw();
         }
 
         if($shape == 'rectangle')
         {
-            return new Rectangle();
+           $rectangle = new Rectangle();
+           return $rectangle->draw();
         }
     }
 }

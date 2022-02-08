@@ -1,10 +1,12 @@
 <?php 
 
-namespace App\Http\Rectangle;
+namespace App\Http\Shapes;
+use App\Http\Shapes\ShapeInterface;
+
 use App\Http\Controllers\Controller;
 
 
-class Rectangle extends Controller
+class Rectangle extends Controller implements ShapeInterface
 {
 
     public function draw()

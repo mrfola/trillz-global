@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WalletController;
+use App\Http\Controllers\FactoryPatternDemo;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,5 @@ Route::post('/users/login', [UserController::class, 'login']);
 Route::get('/users/{user}', [UserController::class, 'show']);
 
 Route::post('/wallet/transfer', [WalletController::class, 'transfer']);
+
+Route::post('/shapes/{shape}', [FactoryPatternDemo::class, 'main']);

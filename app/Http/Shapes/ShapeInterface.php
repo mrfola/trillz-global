@@ -2,6 +2,8 @@
 
 namespace App\Http\Shapes;
 
-interface ShapeInterface {
+interface ShapeInterface 
+{
 public function draw();
+
 }
