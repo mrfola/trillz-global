@@ -11,24 +11,20 @@ use App\Http\Controllers\Controller;
 
 class ShapeFactory extends Controller
 {
+    protected static $shapes = [
+        'circle' => Circle::class,
+        'square' => Square::class, 
+        'rectangle' => Rectangle::class
+    ];
+
     public static function getShape($shape)  
-    {
-        if($shape == 'circle')
+    {     
+        if(array_key_exists($shape, self::$shapes))
         {
-            $circle = new Circle();
-            return $circle->draw();
+            return self::$shapes[$shape];
         }
 
-        if($shape == 'square')
-        {
-            $square = new Square();
-            return $square->draw();
-        }
-
-        if($shape == 'rectangle')
-        {
-           $rectangle = new Rectangle();
-           return $rectangle->draw();
-        }
+        return -1;
+      
     }
 }

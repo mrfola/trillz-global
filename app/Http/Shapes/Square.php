@@ -1,16 +1,14 @@
 <?php 
 
 namespace App\Http\Shapes;
-use App\Http\Shapes\ShapeInterface;
-
-use App\Http\Controllers\Controller;
+use App\Http\Shapes\IShape;
 
 
-class Square extends Controller implements ShapeInterface
+class Square implements IShape
 {
 
     public function draw()
     {
-        return "square";
+        echo "square";
     }
 }

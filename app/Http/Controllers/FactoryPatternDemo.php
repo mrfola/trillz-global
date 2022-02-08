@@ -9,6 +9,6 @@ class FactoryPatternDemo extends Controller
 {
     public function main($shape)  
     {
-        return ShapeFactory::getShape($shape);
+        return response([ShapeFactory::getShape($shape)]);
     }
 }

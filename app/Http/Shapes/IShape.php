@@ -2,7 +2,7 @@
 
 namespace App\Http\Shapes;
 
-interface ShapeInterface 
+interface IShape
 {
 public function draw();
 

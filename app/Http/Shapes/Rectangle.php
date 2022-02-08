@@ -1,16 +1,13 @@
 <?php 
 
 namespace App\Http\Shapes;
-use App\Http\Shapes\ShapeInterface;
+use App\Http\Shapes\IShape;
 
-use App\Http\Controllers\Controller;
-
-
-class Rectangle extends Controller implements ShapeInterface
+class Rectangle implements IShape
 {
 
     public function draw()
     {
-        return "rectangle";
+        echo "rectangle";
     }
 }

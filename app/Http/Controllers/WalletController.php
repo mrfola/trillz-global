@@ -31,8 +31,10 @@ class WalletController extends Controller
         $amount = $request['amount'];
 
         $user = Auth::user();
+
+        try {
        
-        //transfer money from one wallet to the otehr
+        //transfer money from one wallet to the other
         $fromWallet = Wallet::where(['wallet_type_id' => $from,
         'user_id' => $user->id])->first();
         $fromBalance = $fromWallet->balance;
@@ -53,11 +55,21 @@ class WalletController extends Controller
         $fromWallet->balance= $newFromBalance;
         $fromWallet->save();
 
-        $toWallet->balance = $newToBalance;
+        $toWallet->balance = "rice";//$newToBalance;
         $toWallet->save();
         DB::commit();
 
         return response()->json(["message" => "Money Transferred"], 403);
+
+    }catch(\Exception $error)
+    {
+        DB::rollBack();
+        return response([
+            'message' => $error->getMessage(),
+            'status' => 'failed'
+        ], 400);
+    }
+
         
     }
   
