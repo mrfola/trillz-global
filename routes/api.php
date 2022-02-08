@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WalletController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,3 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/users/register', [UserController::class, 'register']);
 Route::post('/users/login', [UserController::class, 'login']);
 Route::get('/users/{user}', [UserController::class, 'show']);
+
+Route::post('/wallet/transfer', [WalletController::class, 'transfer']);

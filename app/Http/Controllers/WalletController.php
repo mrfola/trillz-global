@@ -3,84 +3,62 @@
 namespace App\Http\Controllers;
 
 use App\Models\Wallet;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreWalletRequest;
 use App\Http\Requests\UpdateWalletRequest;
+use Illuminate\Support\Facades\DB;
+
 
 class WalletController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct()
     {
-        //
+        return $this->middleware('auth:api');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function transfer(UpdateWalletRequest $request)
     {
-        //
-    }
+        DB::beginTransaction();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreWalletRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreWalletRequest $request)
-    {
-        //
-    }
+        $request->validate([
+            'from' =>'required|integer',
+            'to' =>'required|integer',
+            'amount' => 'required|integer'
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Wallet  $wallet
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Wallet $wallet)
-    {
-        //
-    }
+        $from = $request['from'];
+        $to = $request['to'];
+        $amount = $request['amount'];
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Wallet  $wallet
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Wallet $wallet)
-    {
-        //
-    }
+        $user = Auth::user();
+       
+        //transfer money from one wallet to the otehr
+        $fromWallet = Wallet::where(['wallet_type_id' => $from,
+        'user_id' => $user->id])->first();
+        $fromBalance = $fromWallet->balance;
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateWalletRequest  $request
-     * @param  \App\Models\Wallet  $wallet
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateWalletRequest $request, Wallet $wallet)
-    {
-        //
-    }
+        $toWallet = Wallet::where(['wallet_type_id' => $to,
+        'user_id' => $user->id])->first();
+        $toBalance = $toWallet->balance;
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Wallet  $wallet
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Wallet $wallet)
-    {
-        //
+        if($amount > $fromBalance)
+        {
+            return response()->json(["message" => "Insufficient funds"], 403);
+        }
+
+        $newFromBalance = $fromBalance - $amount;
+        $newToBalance = $toBalance + $amount;
+
+        
+        $fromWallet->balance= $newFromBalance;
+        $fromWallet->save();
+
+        $toWallet->balance = $newToBalance;
+        $toWallet->save();
+        DB::commit();
+
+        return response()->json(["message" => "Money Transferred"], 403);
+        
     }
+  
 }

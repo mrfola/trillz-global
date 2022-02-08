@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use App\Models\Wallet;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -57,5 +58,10 @@ class User extends Authenticatable implements JWTSubject
     public function UserData()
     {
         return $this->hasOne(UserData::class);
+    }
+
+    public function Wallets()
+    {
+        return $this->hasMany(Wallet::class);
     }
 }
